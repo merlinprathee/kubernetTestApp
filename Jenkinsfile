@@ -2,8 +2,7 @@ pipeline {
     agent any
 
     environment {
-            DOCKER_IMAGE = "merlinpratheesh/kubernettestapp:latest"
-
+        DOCKER_IMAGE = "merlinpratheesh/kubernettestapp:latest"
     }
 
     stages {
