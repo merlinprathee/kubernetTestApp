@@ -20,7 +20,7 @@ pipeline {
 
         stage('Build Angular') {
             steps {
-                bat 'npx ng build --prod'
+                bat 'npx ng build --configuration=production'
             }
         }
 
