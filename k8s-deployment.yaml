@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubernetTestApp
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: kubernetTestApp
+  template:
+    metadata:
+      labels:
+        app: kubernetTestApp
+    spec:
+      containers:
+        - name: kubernetTestApp
+          image: merlinpratheesh/kubernetTestApp:latest
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kubernetTestApp-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: kubernetTestApp
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
