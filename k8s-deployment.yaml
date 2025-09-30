@@ -1,31 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: kubernetTestApp
+  name: kubernettestapp
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: kubernetTestApp
+      app: kubernettestapp
   template:
     metadata:
       labels:
-        app: kubernetTestApp
+        app: kubernettestapp
     spec:
       containers:
-        - name: kubernetTestApp
-          image: merlinpratheesh/kubernetTestApp:latest
+        - name: kubernettestapp
+          image: merlinpratheesh/kubernettestapp:latest
+          imagePullPolicy: Always   # 👈 Force pull latest image
           ports:
             - containerPort: 80
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: kubernetTestApp-service
+  name: kubernettestapp-service
 spec:
   type: LoadBalancer
   selector:
-    app: kubernetTestApp
+    app: kubernettestapp
   ports:
     - protocol: TCP
       port: 80
