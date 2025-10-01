@@ -51,5 +51,18 @@ stage('Deploy to Kubernetes') {
         bat 'kubectl apply -f k8s-deployment.yaml --validate=false'
     }
 }
+
+stage('Verify Kubernetes Deployment') {
+    steps {
+        // Check pods are running
+        bat 'kubectl get pods'
+
+        // Check service and ports
+        bat 'kubectl get svc kubernettestapp-service'
+
+        // Optional: wait for pods to be ready
+        bat 'kubectl rollout status deployment/kubernettestapp'
+    }
+}
     }
 }
