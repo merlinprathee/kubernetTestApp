@@ -39,9 +39,19 @@ pipeline {
             }
         }
 
+        stage('Test Kubernetes Access') {
+            steps {
+                withCredentials([file(credentialsId: 'kubeconfig-file', variable: 'KUBECONFIG')]) {
+                    bat 'kubectl config get-contexts'
+                    bat 'kubectl get nodes'
+                }
+            }
+        }
         stage('Deploy to Kubernetes') {
             steps {
-                bat 'kubectl apply -f k8s-deployment.yaml --validate=false'
+                withCredentials([file(credentialsId: 'kubeconfig-file', variable: 'KUBECONFIG')]) {
+                    bat 'kubectl apply -f k8s-deployment.yaml --validate=false'
+                }
             }
         }
     }
